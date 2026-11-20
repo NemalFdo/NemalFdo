@@ -1,0 +1,176 @@
+<svg width="840" height="230" viewBox="0 0 840 230" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0d1117"/>
+        <stop offset="50%" stop-color="#111823"/>
+        <stop offset="100%" stop-color="#0d1117"/>
+      </linearGradient>
+      <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#39d353">
+          <animate attributeName="stop-color" values="#39d353;#58a6ff;#bc8cff;#39d353" dur="6s" repeatCount="indefinite"/>
+        </stop>
+        <stop offset="50%" stop-color="#58a6ff">
+          <animate attributeName="stop-color" values="#58a6ff;#bc8cff;#39d353;#58a6ff" dur="6s" repeatCount="indefinite"/>
+        </stop>
+        <stop offset="100%" stop-color="#7ee787">
+          <animate attributeName="stop-color" values="#7ee787;#39d353;#58a6ff;#7ee787" dur="6s" repeatCount="indefinite"/>
+        </stop>
+      </linearGradient>
+      <linearGradient id="waveGradA" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#39d353" stop-opacity="0.18"/>
+        <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#bc8cff" stop-opacity="0.18"/>
+      </linearGradient>
+      <clipPath id="heroClip">
+        <rect width="840" height="230" rx="8"/>
+      </clipPath>
+    </defs>
+
+    <style>
+      .cursor { animation: blink 1s step-end infinite; fill: #39d353; }
+      @keyframes blink { 50% { opacity: 0; } }
+    </style>
+
+    <g clip-path="url(#heroClip)">
+      <rect width="840" height="230" rx="8" fill="url(#heroBg)"/>
+
+      <!-- Subtle Cyber Grid Background -->
+      <g stroke="#21262d" stroke-width="0.7" opacity="0.55">
+        <line x1="0" y1="68" x2="840" y2="68"/>
+        <line x1="0" y1="108" x2="840" y2="108"/>
+        <line x1="0" y1="148" x2="840" y2="148"/>
+        <line x1="0" y1="188" x2="840" y2="188"/>
+        <line x1="140" y1="32" x2="140" y2="230"/>
+        <line x1="280" y1="32" x2="280" y2="230"/>
+        <line x1="420" y1="32" x2="420" y2="230"/>
+        <line x1="560" y1="32" x2="560" y2="230"/>
+        <line x1="700" y1="32" x2="700" y2="230"/>
+      </g>
+
+      <!-- Floating Code & Binary Particles -->
+      
+      <text x="45" y="185" fill="#39d353" font-family="monospace" font-size="10" opacity="0.25">
+        01101110
+        <animate attributeName="y" values="185;50" dur="6s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.35;0" dur="6s" begin="0s" repeatCount="indefinite"/>
+      </text>
+      <text x="155" y="205" fill="#58a6ff" font-family="monospace" font-size="10" opacity="0.25">
+        &lt;React /&gt;
+        <animate attributeName="y" values="205;70" dur="7s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.35;0" dur="7s" begin="1.2s" repeatCount="indefinite"/>
+      </text>
+      <text x="280" y="195" fill="#bc8cff" font-family="monospace" font-size="10" opacity="0.25">
+        async () =&gt;
+        <animate attributeName="y" values="195;60" dur="5.5s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.35;0" dur="5.5s" begin="0.5s" repeatCount="indefinite"/>
+      </text>
+      <text x="540" y="200" fill="#39d353" font-family="monospace" font-size="10" opacity="0.25">
+        dotnet run
+        <animate attributeName="y" values="200;65" dur="6.5s" begin="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.35;0" dur="6.5s" begin="1.8s" repeatCount="indefinite"/>
+      </text>
+      <text x="670" y="190" fill="#58a6ff" font-family="monospace" font-size="10" opacity="0.25">
+        { status: 200 }
+        <animate attributeName="y" values="190;55" dur="5.8s" begin="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.35;0" dur="5.8s" begin="0.8s" repeatCount="indefinite"/>
+      </text>
+      <text x="765" y="205" fill="#d29922" font-family="monospace" font-size="10" opacity="0.25">
+        git push
+        <animate attributeName="y" values="205;70" dur="6.2s" begin="2.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.35;0" dur="6.2s" begin="2.1s" repeatCount="indefinite"/>
+      </text>
+
+      <!-- Animated Bottom Cyber Waves -->
+      <path fill="url(#waveGradA)">
+        <animate attributeName="d" dur="7s" repeatCount="indefinite" values="
+          M 0 192 Q 210 168 420 192 T 840 192 L 840 230 L 0 230 Z;
+          M 0 192 Q 210 215 420 192 T 840 192 L 840 230 L 0 230 Z;
+          M 0 192 Q 210 168 420 192 T 840 192 L 840 230 L 0 230 Z"/>
+      </path>
+      <path fill="url(#waveGradA)" opacity="0.6">
+        <animate attributeName="d" dur="5s" repeatCount="indefinite" values="
+          M 0 202 Q 210 222 420 202 T 840 202 L 840 230 L 0 230 Z;
+          M 0 202 Q 210 178 420 202 T 840 202 L 840 230 L 0 230 Z;
+          M 0 202 Q 210 222 420 202 T 840 202 L 840 230 L 0 230 Z"/>
+      </path>
+
+      <!-- Terminal Title Bar -->
+      
+    <rect x="0" y="0" width="840" height="32" rx="8" fill="#161b22"/>
+    <rect x="0" y="16" width="840" height="16" fill="#161b22"/>
+    <circle cx="18" cy="16" r="5" fill="#ff5f56"/>
+    <circle cx="36" cy="16" r="5" fill="#ffbd2e"/>
+    <circle cx="54" cy="16" r="5" fill="#27c93f">
+      <animate attributeName="opacity" values="1;0.45;1" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Subtle Window Tab Pill -->
+    <rect x="74" y="6" width="58" height="20" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="0.8"/>
+    <text x="103" y="19" fill="#58a6ff" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">zsh 5.9</text>
+
+    <text x="420" y="20" fill="#8b949e" font-family="monospace" font-size="12" text-anchor="middle">nemalfdo@github ~ $ ./init-command-center.sh --fullscreen<tspan class="cursor">_</tspan></text>
+
+    <!-- Live Radar Status Indicator -->
+    <rect x="762" y="6" width="66" height="20" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="0.8"/>
+    <circle cx="776" cy="16" r="3.2" fill="#39d353"/>
+    <circle cx="776" cy="16" r="3.2" fill="none" stroke="#39d353" stroke-width="1.2">
+      <animate attributeName="r" values="3.2;7.8;3.2" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.9;0;0.9" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="786" y="19.5" fill="#39d353" font-family="monospace" font-size="9.5" font-weight="bold">ONLINE</text>
+    <line x1="0" y1="32" x2="840" y2="32" stroke="#30363d" stroke-width="1"/>
+  
+
+      <!-- Left Animated Cyber Radar Core (cx=105, cy=128) -->
+      <g transform="translate(105, 130)">
+        <circle cx="0" cy="0" r="54" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+        <!-- Outer Rotating Dashed Ring -->
+        <circle cx="0" cy="0" r="46" fill="none" stroke="#39d353" stroke-width="2" stroke-dasharray="22 10 8 10" opacity="0.85">
+          <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="10s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Middle Counter-Rotating Cyan Ring -->
+        <circle cx="0" cy="0" r="35" fill="none" stroke="#58a6ff" stroke-width="1.6" stroke-dasharray="16 12" opacity="0.8">
+          <animateTransform attributeName="transform" type="rotate" from="360 0 0" to="0 0 0" dur="7s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Inner Pulsing Core -->
+        <circle cx="0" cy="0" r="22" fill="#161b22" stroke="#bc8cff" stroke-width="1.2">
+          <animate attributeName="r" values="20;24;20" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <text x="0" y="5" fill="#e6edf3" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">&lt;/&gt;</text>
+      </g>
+
+      <!-- Main Hero Text & HUD -->
+      <text x="190" y="72" fill="#39d353" font-family="monospace" font-size="11.5" font-weight="bold">
+        ▸ SYSTEM.IDENTITY // VERIFIED DEVELOPER PROFILE
+      </text>
+
+      <text x="190" y="112" fill="url(#titleGrad)" font-family="monospace" font-size="33" font-weight="bold" letter-spacing="1">
+        NEMAL FERNANDO
+      </text>
+
+      <text x="190" y="138" fill="#e6edf3" font-family="monospace" font-size="13.5" font-weight="bold">
+        Software Engineer  •  Full-Stack Developer  •  Mobile App Developer
+      </text>
+
+      <!-- Animated HUD Badges Row -->
+      <g transform="translate(190, 154)">
+        <rect x="0" y="0" width="142" height="24" rx="5" fill="#161b22" stroke="#39d353" stroke-width="1"/>
+        <text x="71" y="15.5" fill="#39d353" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">⚡ 717 COMMITS/YR</text>
+
+        <rect x="152" y="0" width="166" height="24" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1"/>
+        <text x="235" y="15.5" fill="#58a6ff" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">🌐 REACT • NEXT • .NET</text>
+
+        <rect x="328" y="0" width="154" height="24" rx="5" fill="#161b22" stroke="#bc8cff" stroke-width="1"/>
+        <text x="405" y="15.5" fill="#bc8cff" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">📱 MOBILE &amp; SYSTEMS</text>
+
+        <rect x="492" y="0" width="120" height="24" rx="5" fill="#161b22" stroke="#d29922" stroke-width="1"/>
+        <text x="552" y="15.5" fill="#d29922" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">📍 SRI LANKA</text>
+      </g>
+
+      <!-- Bottom Command Prompt Line -->
+      <text x="190" y="206" fill="#8b949e" font-family="monospace" font-size="11">
+        <tspan fill="#39d353" font-weight="bold">nemalfdo@github</tspan>:<tspan fill="#58a6ff">~/portfolio</tspan>$ ./deploy-innovation.sh --watch --mode=autonomous<tspan class="cursor"> █</tspan>
+      </text>
+    </g>
+
+    <rect width="840" height="230" rx="8" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  </svg>

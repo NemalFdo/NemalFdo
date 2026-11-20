@@ -1,0 +1,194 @@
+<svg width="840" height="340" viewBox="0 0 840 340" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="gradGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#0e4429"/>
+        <stop offset="100%" stop-color="#39d353"/>
+      </linearGradient>
+      <linearGradient id="gradCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#1f6feb"/>
+        <stop offset="100%" stop-color="#58a6ff"/>
+      </linearGradient>
+      <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#6e40c9"/>
+        <stop offset="100%" stop-color="#bc8cff"/>
+      </linearGradient>
+      <linearGradient id="gradAmber" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#9e6a03"/>
+        <stop offset="100%" stop-color="#d29922"/>
+      </linearGradient>
+    </defs>
+    <style>
+      .cursor { animation: blink 1s step-end infinite; fill: #39d353; }
+      .fade-line { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+      .ecg-wave-1 {
+        stroke-dasharray: 440;
+        stroke-dashoffset: 440;
+        animation: pulseWave 3s linear infinite;
+      }
+      .ecg-wave-2 {
+        stroke-dasharray: 440;
+        stroke-dashoffset: 440;
+        animation: pulseWave 4.2s linear infinite;
+      }
+      @keyframes blink { 50% { opacity: 0; } }
+      @keyframes fadeIn { to { opacity: 1; } }
+      @keyframes pulseWave {
+        0% { stroke-dashoffset: 440; opacity: 0.35; }
+        50% { opacity: 1; }
+        100% { stroke-dashoffset: 0; opacity: 0.35; }
+      }
+    </style>
+
+    <rect width="840" height="340" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+    
+    <rect x="0" y="0" width="840" height="32" rx="8" fill="#161b22"/>
+    <rect x="0" y="16" width="840" height="16" fill="#161b22"/>
+    <circle cx="18" cy="16" r="5" fill="#ff5f56"/>
+    <circle cx="36" cy="16" r="5" fill="#ffbd2e"/>
+    <circle cx="54" cy="16" r="5" fill="#27c93f">
+      <animate attributeName="opacity" values="1;0.45;1" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Subtle Window Tab Pill -->
+    <rect x="74" y="6" width="58" height="20" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="0.8"/>
+    <text x="103" y="19" fill="#58a6ff" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">zsh 5.9</text>
+
+    <text x="420" y="20" fill="#8b949e" font-family="monospace" font-size="12" text-anchor="middle">nemalfdo@github ~ $ ./stack-telemetry.sh --monitor<tspan class="cursor">_</tspan></text>
+
+    <!-- Live Radar Status Indicator -->
+    <rect x="762" y="6" width="66" height="20" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="0.8"/>
+    <circle cx="776" cy="16" r="3.2" fill="#58a6ff"/>
+    <circle cx="776" cy="16" r="3.2" fill="none" stroke="#58a6ff" stroke-width="1.2">
+      <animate attributeName="r" values="3.2;7.8;3.2" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.9;0;0.9" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="786" y="19.5" fill="#58a6ff" font-family="monospace" font-size="9.5" font-weight="bold">TELEMETRY</text>
+    <line x1="0" y1="32" x2="840" y2="32" stroke="#30363d" stroke-width="1"/>
+  
+
+    <!-- Left Column: 6 Animated Skill Telemetry Bars -->
+    
+      <g transform="translate(22, 55)">
+        <text x="0" y="0" fill="#39d353" font-family="monospace" font-size="10.5" font-weight="bold">[FRONTEND_WEB]</text>
+        <text x="105" y="0" fill="#8b949e" font-family="monospace" font-size="10">React • Next.js • Tailwind • HTML/CSS</text>
+        <text x="374" y="0" fill="#39d353" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="end">94%</text>
+        <rect x="0" y="7" width="374" height="9" rx="4.5" fill="#161b22" stroke="#30363d" stroke-width="0.8"/>
+        <rect x="0" y="7" width="0" height="9" rx="4.5" fill="url(#gradGreen)">
+          <animate attributeName="width" from="0" to="350" dur="1.35s" begin="0.1s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/>
+        </rect>
+      </g>
+      <g transform="translate(22, 100)">
+        <text x="0" y="0" fill="#58a6ff" font-family="monospace" font-size="10.5" font-weight="bold">[BACKEND_APIS]</text>
+        <text x="105" y="0" fill="#8b949e" font-family="monospace" font-size="10">Node.js • Express • NestJS • REST/GraphQL</text>
+        <text x="374" y="0" fill="#58a6ff" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="end">90%</text>
+        <rect x="0" y="7" width="374" height="9" rx="4.5" fill="#161b22" stroke="#30363d" stroke-width="0.8"/>
+        <rect x="0" y="7" width="0" height="9" rx="4.5" fill="url(#gradCyan)">
+          <animate attributeName="width" from="0" to="335" dur="1.35s" begin="0.22s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/>
+        </rect>
+      </g>
+      <g transform="translate(22, 145)">
+        <text x="0" y="0" fill="#bc8cff" font-family="monospace" font-size="10.5" font-weight="bold">[ENTERPRISE]</text>
+        <text x="105" y="0" fill="#8b949e" font-family="monospace" font-size="10">C# • .NET Core • Java • OOP Architecture</text>
+        <text x="374" y="0" fill="#bc8cff" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="end">88%</text>
+        <rect x="0" y="7" width="374" height="9" rx="4.5" fill="#161b22" stroke="#30363d" stroke-width="0.8"/>
+        <rect x="0" y="7" width="0" height="9" rx="4.5" fill="url(#gradPurple)">
+          <animate attributeName="width" from="0" to="327" dur="1.35s" begin="0.34s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/>
+        </rect>
+      </g>
+      <g transform="translate(22, 190)">
+        <text x="0" y="0" fill="#39d353" font-family="monospace" font-size="10.5" font-weight="bold">[DATA_ENG]</text>
+        <text x="105" y="0" fill="#8b949e" font-family="monospace" font-size="10">MySQL • MariaDB • MongoDB • SQL/NoSQL</text>
+        <text x="374" y="0" fill="#39d353" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="end">86%</text>
+        <rect x="0" y="7" width="374" height="9" rx="4.5" fill="#161b22" stroke="#30363d" stroke-width="0.8"/>
+        <rect x="0" y="7" width="0" height="9" rx="4.5" fill="url(#gradGreen)">
+          <animate attributeName="width" from="0" to="320" dur="1.35s" begin="0.46s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/>
+        </rect>
+      </g>
+      <g transform="translate(22, 235)">
+        <text x="0" y="0" fill="#d29922" font-family="monospace" font-size="10.5" font-weight="bold">[MOBILE_&amp;_UX]</text>
+        <text x="105" y="0" fill="#8b949e" font-family="monospace" font-size="10">Mobile Dev • Figma • Responsive Design</text>
+        <text x="374" y="0" fill="#d29922" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="end">84%</text>
+        <rect x="0" y="7" width="374" height="9" rx="4.5" fill="#161b22" stroke="#30363d" stroke-width="0.8"/>
+        <rect x="0" y="7" width="0" height="9" rx="4.5" fill="url(#gradAmber)">
+          <animate attributeName="width" from="0" to="312" dur="1.35s" begin="0.58s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/>
+        </rect>
+      </g>
+      <g transform="translate(22, 280)">
+        <text x="0" y="0" fill="#58a6ff" font-family="monospace" font-size="10.5" font-weight="bold">[SYSTEMS_SCI]</text>
+        <text x="105" y="0" fill="#8b949e" font-family="monospace" font-size="10">C • C++ • PHP • MATLAB • Linux/Git</text>
+        <text x="374" y="0" fill="#58a6ff" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="end">82%</text>
+        <rect x="0" y="7" width="374" height="9" rx="4.5" fill="#161b22" stroke="#30363d" stroke-width="0.8"/>
+        <rect x="0" y="7" width="0" height="9" rx="4.5" fill="url(#gradCyan)">
+          <animate attributeName="width" from="0" to="305" dur="1.35s" begin="0.7s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/>
+        </rect>
+      </g>
+
+    <!-- Center Divider -->
+    <line x1="416" y1="32" x2="416" y2="340" stroke="#30363d" stroke-width="1"/>
+
+    <!-- Right Top: Dual-Channel Oscilloscope Heartbeat Monitor -->
+    <rect x="434" y="46" width="384" height="86" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <text x="448" y="64" fill="#e6edf3" font-family="monospace" font-size="10.5" font-weight="bold">▸ RUNTIME OSCILLOSCOPE // CODING STREAM</text>
+    <text x="804" y="64" fill="#39d353" font-family="monospace" font-size="9.5" text-anchor="end">99.8% UPTIME</text>
+
+    <!-- Channel 1 (Green ECG) & Channel 2 (Cyan Harmonic) -->
+    <path class="ecg-wave-2" d="M 448 102 Q 485 78 522 102 T 596 102 T 670 102 T 744 102 T 804 102" fill="none" stroke="#58a6ff" stroke-width="1.4" opacity="0.7"/>
+    <path class="ecg-wave-1" d="M 448 102 L 492 102 L 505 82 L 516 118 L 530 72 L 544 118 L 556 94 L 570 102 L 626 102 L 640 80 L 652 116 L 666 74 L 680 114 L 692 102 L 804 102" fill="none" stroke="#39d353" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Right Middle: Animated Architecture Pipeline -->
+    <rect x="434" y="142" width="384" height="72" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <text x="448" y="157" fill="#8b949e" font-family="monospace" font-size="10">▸ FULL-STACK DELIVERY PIPELINE (LIVE DATA FLOW)</text>
+    
+      <line x1="526" y1="184" x2="542" y2="184" stroke="#30363d" stroke-width="2"/>
+             <circle cx="526" cy="184" r="2.5" fill="#39d353">
+               <animate attributeName="cx" values="526;542" dur="1.2s" begin="0s" repeatCount="indefinite"/>
+             </circle>
+      <rect x="452" y="164" width="74" height="40" rx="5" fill="#0d1117" stroke="#bc8cff" stroke-width="1.2">
+        <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2.4s" begin="0s" repeatCount="indefinite"/>
+      </rect>
+      <text x="489" y="181" fill="#bc8cff" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">DESIGN</text>
+      <text x="489" y="195" fill="#8b949e" font-family="monospace" font-size="8.5" text-anchor="middle">Figma/UX</text>
+    
+      <line x1="616" y1="184" x2="632" y2="184" stroke="#30363d" stroke-width="2"/>
+             <circle cx="616" cy="184" r="2.5" fill="#39d353">
+               <animate attributeName="cx" values="616;632" dur="1.2s" begin="0.6s" repeatCount="indefinite"/>
+             </circle>
+      <rect x="542" y="164" width="74" height="40" rx="5" fill="#0d1117" stroke="#58a6ff" stroke-width="1.2">
+        <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2.4s" begin="0.6s" repeatCount="indefinite"/>
+      </rect>
+      <text x="579" y="181" fill="#58a6ff" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">FRONTEND</text>
+      <text x="579" y="195" fill="#8b949e" font-family="monospace" font-size="8.5" text-anchor="middle">Next/React</text>
+    
+      <line x1="706" y1="184" x2="722" y2="184" stroke="#30363d" stroke-width="2"/>
+             <circle cx="706" cy="184" r="2.5" fill="#39d353">
+               <animate attributeName="cx" values="706;722" dur="1.2s" begin="1.2s" repeatCount="indefinite"/>
+             </circle>
+      <rect x="632" y="164" width="74" height="40" rx="5" fill="#0d1117" stroke="#39d353" stroke-width="1.2">
+        <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
+      </rect>
+      <text x="669" y="181" fill="#39d353" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">BACKEND</text>
+      <text x="669" y="195" fill="#8b949e" font-family="monospace" font-size="8.5" text-anchor="middle">Nest/.NET</text>
+    
+      
+      <rect x="722" y="164" width="74" height="40" rx="5" fill="#0d1117" stroke="#d29922" stroke-width="1.2">
+        <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2.4s" begin="1.8s" repeatCount="indefinite"/>
+      </rect>
+      <text x="759" y="181" fill="#d29922" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">DEPLOY</text>
+      <text x="759" y="195" fill="#8b949e" font-family="monospace" font-size="8.5" text-anchor="middle">CI/CD Cloud</text>
+    
+
+    <!-- Right Bottom: htop Active Process Daemons -->
+    <rect x="434" y="224" width="384" height="98" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <text x="448" y="242" fill="#58a6ff" font-family="monospace" font-size="10" font-weight="bold">PID   DAEMON              STACK                  STATE</text>
+    <text class="fade-line" style="animation-delay:0.2s" x="448" y="261" fill="#8b949e" font-family="monospace" font-size="10">
+      <tspan fill="#e6edf3">2002</tspan>  fullstack-core      Next.js + NestJS       <tspan fill="#39d353" font-weight="bold">[RUNNING]</tspan>
+    </text>
+    <text class="fade-line" style="animation-delay:0.35s" x="448" y="279" fill="#8b949e" font-family="monospace" font-size="10">
+      <tspan fill="#e6edf3">3045</tspan>  enterprise-api      C# + .NET + Java       <tspan fill="#58a6ff" font-weight="bold">[ACTIVE]</tspan>
+    </text>
+    <text class="fade-line" style="animation-delay:0.5s" x="448" y="297" fill="#8b949e" font-family="monospace" font-size="10">
+      <tspan fill="#e6edf3">4110</tspan>  mobile-engine       Android + Cross-Plat   <tspan fill="#bc8cff" font-weight="bold">[BUILDING]</tspan>
+    </text>
+    <text class="fade-line" style="animation-delay:0.65s" x="448" y="314" fill="#8b949e" font-family="monospace" font-size="10">
+      <tspan fill="#e6edf3">5173</tspan>  db-cluster          MySQL + MongoDB        <tspan fill="#39d353" font-weight="bold">[HEALTHY]</tspan>
+    </text>
+  </svg>

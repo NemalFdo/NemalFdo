@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '0 */12 * * *'
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/update-profile.yml'
 
 permissions:
   contents: write
@@ -34,4 +40,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add assets/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update animated terminal stats" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update animated terminal stats [skip ci]" && git push)
