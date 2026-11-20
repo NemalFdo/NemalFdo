@@ -26,9 +26,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install image converter
-        run: npm install --no-save jimp
-
       - name: Generate Terminal SVGs
         env:
           GH_PAT: ${{ secrets.GH_PAT }}

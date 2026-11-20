@@ -30,7 +30,6 @@ async function fetchGitHubStats() {
   const query = `
     query($username: String!) {
       user(login: $username) {
-        avatarUrl(size: 400)
         repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
           totalCount
           nodes {
@@ -135,58 +134,6 @@ function loadFallbackMetrics() {
     weeks: weeks.slice(-52),
     monthlyTotals: [40, 30, 26, 102, 74, 86, 32, 53, 30, 26, 19, 7],
   };
-}
-
-// Converts an image (local scripts/avatar.png or GitHub avatarUrl) to crisp Braille/ASCII art
-async function buildBraillePortrait(avatarUrl) {
-  const customAsciiPath = path.join(__dirname, 'ascii.txt');
-  if (fs.existsSync(customAsciiPath)) {
-    const content = fs
-      .readFileSync(customAsciiPath, 'utf8')
-      .replace(/\r\n/g, '\n')
-      .replace(/^\n+|\n+$/g, '');
-    if (content.length > 50) return content;
-  }
-
-  if (!avatarUrl) {
-    return '';
-  }
-
-  let Jimp;
-  try {
-    ({ Jimp } = require('jimp'));
-  } catch {
-    Jimp = require('jimp');
-  }
-
-  const localPhoto = path.join(__dirname, 'avatar.png');
-  const source = fs.existsSync(localPhoto) ? localPhoto : avatarUrl;
-  const img = await Jimp.read(source);
-
-  const pxW = 88;
-  const pxH = 112;
-  img.cover({ w: pxW, h: pxH }).greyscale().contrast(0.35);
-
-  const dotMap = [
-    [0, 0, 0x01], [0, 1, 0x02], [0, 2, 0x04], [0, 3, 0x40],
-    [1, 0, 0x08], [1, 1, 0x10], [1, 2, 0x20], [1, 3, 0x80],
-  ];
-
-  const lines = [];
-  for (let y = 0; y < pxH; y += 4) {
-    let line = '';
-    for (let x = 0; x < pxW; x += 2) {
-      let code = 0x2800;
-      for (const [dx, dy, bit] of dotMap) {
-        const idx = ((y + dy) * pxW + (x + dx)) * 4;
-        const brightness = img.bitmap.data[idx];
-        if (brightness > 110) code |= bit;
-      }
-      line += String.fromCharCode(code);
-    }
-    lines.push(line);
-  }
-  return lines.join('\n');
 }
 
 function calculateMetrics(userData) {
@@ -376,7 +323,7 @@ function generateHeroSVG(metrics) {
       <!-- Terminal Title Bar -->
       ${terminalHeader('nemalfdo@github ~ $ ./init-command-center.sh --fullscreen', width, 'ONLINE')}
 
-      <!-- Left Animated Cyber Radar Core (cx=105, cy=128) -->
+      <!-- Left Animated Cyber Radar Core (cx=105, cy=130) -->
       <g transform="translate(105, 130)">
         <circle cx="0" cy="0" r="54" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
         <!-- Outer Rotating Dashed Ring -->
@@ -451,7 +398,6 @@ function generateContributionsSVG(metrics) {
     return '#39d353';
   };
 
-  // Month headers along top of heatmap
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const monthLabels = monthNames
     .map(
@@ -460,7 +406,6 @@ function generateContributionsSVG(metrics) {
     )
     .join('');
 
-  // Day-of-week labels along left of heatmap
   const dayLabels = [
     { label: 'Mon', row: 1 },
     { label: 'Wed', row: 3 },
@@ -535,7 +480,7 @@ function generateContributionsSVG(metrics) {
     ${dayLabels}
     ${gridSvg}
 
-    <!-- Dual Horizontal & Vertical Radar Sweep Beams + Traveling Data Packet -->
+    <!-- Dual Horizontal & Vertical Radar Sweep Beams -->
     <g clip-path="url(#gridClip)">
       <rect x="-80" y="${startY - 2}" width="80" height="104" fill="url(#radarBeamX)">
         <animate attributeName="x" values="-80;810" dur="5.2s" repeatCount="indefinite"/>
@@ -567,36 +512,44 @@ function generateContributionsSVG(metrics) {
 }
 
 /**
- * 3. Detailed Whoami Portrait + Neofetch Specs + 6 Telemetry Cards + Monthly Analytics Chart (assets/whoami.svg)
+ * 3. Detailed Whoami ASCII Avatar + 6 Telemetry Cards + Monthly Analytics Chart (assets/whoami.svg)
  */
-function generateWhoamiSVG(metrics, brailleArt) {
-  const width = 840;
-  const height = 470;
+function loadAsciiPortrait() {
+  const customAsciiPath = path.join(__dirname, 'ascii.txt');
+  if (fs.existsSync(customAsciiPath)) {
+    return fs
+      .readFileSync(customAsciiPath, 'utf8')
+      .replace(/^\uFEFF/, '')
+      .replace(/\r\n/g, '\n')
+      .replace(/^\n+|\n+$/g, '');
+  }
+  return '';
+}
 
-  const linesArr = brailleArt.split('\n').slice(0, 32);
-  const isCustomAscii = linesArr.length > 0 && !/[\u2800-\u28FF]/.test(linesArr[0]);
-  const fontSize = isCustomAscii ? 8.5 : 8.2;
-  const lineDy = isCustomAscii ? 9.3 : 7.6;
+function generateWhoamiSVG(metrics, asciiArt) {
+  const width = 840;
+  const height = 435;
+
+  const linesArr = asciiArt.split('\n').slice(0, 34);
+  const totalLines = linesArr.length || 1;
+  const revealDuration = 1.45; // seconds for top-to-bottom initial load
 
   const asciiLines = linesArr
-    .map(
-      (line, idx) =>
-        `<tspan x="84" dy="${idx === 0 ? 0 : lineDy}">${escapeXml(line)}</tspan>`
-    )
-    .join('');
+    .map((line, idx) => {
+      const y = 62 + idx * 10.0;
+      const delay = ((idx / totalLines) * revealDuration).toFixed(3);
 
-  // Load segmented studio portrait (scripts/avatar.png) as embedded base64 URI for 1:1 likeness
-  const avatarPath = path.join(__dirname, 'avatar.png');
-  let avatarImageTag = '';
-  if (fs.existsSync(avatarPath)) {
-    const b64 = fs.readFileSync(avatarPath).toString('base64');
-    avatarImageTag = `
-      <!-- High-Definition Segmented Portrait Base Layer -->
-      <image x="102" y="46" width="174" height="251" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,${b64}" opacity="0.92"/>
-      <!-- CRT Terminal Horizontal Scanline Mesh over Portrait -->
-      <rect x="18" y="44" width="344" height="255" fill="url(#crtLines)" opacity="0.32"/>
-    `;
-  }
+      // Highlight the < > code brackets inside the center of the laptop (rows 23..27, cols 13..29) in neon green
+      if (idx >= 23 && idx <= 27 && line.length >= 30) {
+        const leftPart = escapeXml(line.slice(0, 13));
+        const midPart = escapeXml(line.slice(13, 29));
+        const rightPart = escapeXml(line.slice(29));
+        return `<text class="ascii-line" style="animation-delay:${delay}s" x="64" y="${y.toFixed(1)}" fill="#e6edf3" font-family="monospace" font-size="10" xml:space="preserve">${leftPart}<tspan fill="#39d353">${midPart}</tspan>${rightPart}</text>`;
+      }
+
+      return `<text class="ascii-line" style="animation-delay:${delay}s" x="64" y="${y.toFixed(1)}" fill="#e6edf3" font-family="monospace" font-size="10" xml:space="preserve">${escapeXml(line)}</text>`;
+    })
+    .join('\n      ');
 
   const statBox = (x, y, label, value, sub, accent, delay) => `
     <g class="fade-up" style="animation-delay:${delay}s">
@@ -618,8 +571,8 @@ function generateWhoamiSVG(metrics, brailleArt) {
   const maxMonth = Math.max(...metrics.monthlyTotals, 1);
   let barsSvg = '';
   const trendPoints = [];
-  const chartBaseY = 424;
-  const barMaxH = 115;
+  const chartBaseY = 390;
+  const barMaxH = 104;
 
   metrics.monthlyTotals.forEach((val, i) => {
     const barH = Math.max(6, Math.round((val / maxMonth) * barMaxH));
@@ -634,7 +587,7 @@ function generateWhoamiSVG(metrics, brailleArt) {
       <circle cx="${bx + 10}" cy="${by}" r="2.8" fill="#58a6ff" class="fade-up" style="animation-delay:${(0.4 + i * 0.06).toFixed(2)}s">
         ${val === maxMonth ? `<animate attributeName="r" values="2.8;6;2.8" dur="1.6s" repeatCount="indefinite"/>` : ''}
       </circle>
-      <text x="${bx + 10}" y="442" fill="#8b949e" font-family="monospace" font-size="9.5" text-anchor="middle">${months[i]}</text>
+      <text x="${bx + 10}" y="408" fill="#8b949e" font-family="monospace" font-size="9.5" text-anchor="middle">${months[i]}</text>
     `;
   });
 
@@ -643,15 +596,6 @@ function generateWhoamiSVG(metrics, brailleArt) {
     <polygon points="${areaPoints}" fill="url(#trendAreaGrad)" opacity="0.35"/>
     <polyline points="${trendPoints.join(' ')}" fill="none" stroke="#58a6ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="trend-line"/>
   `;
-
-  const swatches = ['#ff5f56', '#ff9e64', '#d29922', '#39d353', '#39c5cf', '#58a6ff', '#bc8cff', '#e6edf3']
-    .map(
-      (c, idx) =>
-        `<rect x="${30 + idx * 22}" y="438" width="15" height="9" rx="2.5" fill="${c}">
-          <animate attributeName="y" values="438;435;438" dur="1.8s" begin="${(idx * 0.15).toFixed(2)}s" repeatCount="indefinite"/>
-        </rect>`
-    )
-    .join('');
 
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -665,20 +609,22 @@ function generateWhoamiSVG(metrics, brailleArt) {
       </linearGradient>
       <linearGradient id="portraitScan" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#39d353" stop-opacity="0"/>
-        <stop offset="50%" stop-color="#39d353" stop-opacity="0.24"/>
-        <stop offset="100%" stop-color="#39d353" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#39d353" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#39d353" stop-opacity="0.55"/>
       </linearGradient>
-      <pattern id="crtLines" width="4" height="3" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="0" x2="4" y2="0" stroke="#0d1117" stroke-width="1"/>
-      </pattern>
+      <!-- Top-to-Bottom Progressive Load Clip Mask -->
       <clipPath id="portraitClip">
-        <rect x="18" y="44" width="344" height="255" rx="6"/>
+        <rect x="18" y="44" width="346" height="0" rx="6">
+          <animate attributeName="height" from="0" to="338" dur="1.5s" begin="0s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1"/>
+        </rect>
       </clipPath>
     </defs>
     <style>
       .cursor { animation: blink 1s step-end infinite; fill: #39d353; }
-      .portrait { opacity: 0; animation: fadeIn 1.1s ease forwards, portraitPulse 4.5s ease-in-out infinite; }
-      .portrait-overlay { opacity: 0.32; animation: overlayPulse 4.5s ease-in-out infinite; }
+      .ascii-line {
+        opacity: 0;
+        animation: loadTopToBottom 0.28s ease-out forwards;
+      }
       .fade-up { opacity: 0; animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
       .bar {
         transform-box: fill-box;
@@ -692,14 +638,9 @@ function generateWhoamiSVG(metrics, brailleArt) {
         animation: drawTrend 1.9s ease-out 0.45s forwards;
       }
       @keyframes blink { 50% { opacity: 0; } }
-      @keyframes fadeIn { to { opacity: 1; } }
-      @keyframes portraitPulse {
-        0%, 100% { fill: #e6edf3; }
-        50% { fill: #7ee787; }
-      }
-      @keyframes overlayPulse {
-        0%, 100% { opacity: 0.22; fill: #39d353; }
-        50% { opacity: 0.38; fill: #7ee787; }
+      @keyframes loadTopToBottom {
+        0% { opacity: 0; transform: translateY(-4px); filter: brightness(2.2); }
+        100% { opacity: 1; transform: translateY(0); filter: brightness(1); }
       }
       @keyframes fadeUp {
         0% { opacity: 0; transform: translateY(7px); }
@@ -710,43 +651,30 @@ function generateWhoamiSVG(metrics, brailleArt) {
     </style>
 
     <rect width="${width}" height="${height}" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
-    ${terminalHeader(`${CONFIG.username.toLowerCase()}@github ~ $ neofetch --whoami --analytics`, width, 'ACTIVE')}
+    ${terminalHeader(`${CONFIG.username.toLowerCase()}@github ~ $ whoami --ascii --analytics`, width, 'ACTIVE')}
 
-    <!-- Left Top: Holographic Portrait Frame -->
-    <rect x="18" y="44" width="344" height="255" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <!-- Left Panel: Pure ASCII Developer Avatar Frame -->
+    <rect x="18" y="44" width="346" height="338" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
     <!-- HUD Corner Target Brackets -->
-    <path d="M 26 58 L 26 50 L 34 50 M 346 50 L 354 50 L 354 58 M 26 285 L 26 293 L 34 293 M 346 293 L 354 293 L 354 285" fill="none" stroke="#39d353" stroke-width="1.5"/>
+    <path d="M 26 58 L 26 50 L 34 50 M 348 50 L 356 50 L 356 58 M 26 368 L 26 376 L 34 376 M 348 376 L 356 376 L 356 368" fill="none" stroke="#39d353" stroke-width="1.5"/>
 
     <g clip-path="url(#portraitClip)">
-      ${avatarImageTag}
-      <text class="${avatarImageTag ? 'portrait-overlay' : 'portrait'}" y="54" fill="#39d353" font-family="monospace" font-size="${fontSize}" xml:space="preserve">${asciiLines}</text>
-      <!-- Animated Holographic Scanline over Portrait -->
-      <rect x="18" y="44" width="344" height="38" fill="url(#portraitScan)">
-        <animate attributeName="y" values="44;299" dur="4.2s" repeatCount="indefinite"/>
+      ${asciiLines}
+      <!-- Initial Top-to-Bottom Print Laser Beam + Continuous Holographic Scanline -->
+      <rect x="18" y="44" width="346" height="24" fill="url(#portraitScan)">
+        <animate attributeName="y" values="44;382" dur="1.5s" begin="0s" repeatCount="1" fill="freeze"/>
+        <animate attributeName="y" values="44;382" dur="4.8s" begin="1.5s" repeatCount="indefinite"/>
       </rect>
     </g>
 
-    <!-- Left Bottom: Neofetch System Specs Box -->
-    <rect x="18" y="308" width="344" height="146" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <text class="fade-up" style="animation-delay:0.15s" x="30" y="327" fill="#8b949e" font-family="monospace" font-size="10.5">
-      <tspan fill="#39d353" font-weight="bold">HOST</tspan>     :: <tspan fill="#e6edf3">Nemal Fernando (@NemalFdo)</tspan>
+    <!-- Portrait Footer Status Bar -->
+    <rect x="18" y="390" width="346" height="28" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <circle cx="34" cy="404" r="3.5" fill="#39d353">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+    <text x="46" y="408" fill="#8b949e" font-family="monospace" font-size="10.5">
+      <tspan fill="#e6edf3" font-weight="bold">Nemal Fernando</tspan> • Full-Stack &amp; Mobile
     </text>
-    <text class="fade-up" style="animation-delay:0.25s" x="30" y="345" fill="#8b949e" font-family="monospace" font-size="10.5">
-      <tspan fill="#58a6ff" font-weight="bold">KERNEL</tspan>   :: <tspan fill="#e6edf3">Full-Stack &amp; Mobile Engineer</tspan>
-    </text>
-    <text class="fade-up" style="animation-delay:0.35s" x="30" y="363" fill="#8b949e" font-family="monospace" font-size="10.5">
-      <tspan fill="#bc8cff" font-weight="bold">OS/ENV</tspan>   :: <tspan fill="#e6edf3">Win 11 • Linux • Android</tspan>
-    </text>
-    <text class="fade-up" style="animation-delay:0.45s" x="30" y="381" fill="#8b949e" font-family="monospace" font-size="10.5">
-      <tspan fill="#d29922" font-weight="bold">IDE</tspan>      :: <tspan fill="#e6edf3">VS Code • IntelliJ • VS 2022</tspan>
-    </text>
-    <text class="fade-up" style="animation-delay:0.55s" x="30" y="399" fill="#8b949e" font-family="monospace" font-size="10.5">
-      <tspan fill="#39d353" font-weight="bold">EMAIL</tspan>    :: <tspan fill="#e6edf3">dinethnemal2002@gmail.com</tspan>
-    </text>
-    <text class="fade-up" style="animation-delay:0.65s" x="30" y="417" fill="#8b949e" font-family="monospace" font-size="10.5">
-      <tspan fill="#58a6ff" font-weight="bold">STATUS</tspan>   :: <tspan fill="#39d353">● Open to New Opportunities</tspan>
-    </text>
-    ${swatches}
 
     <!-- Vertical Divider -->
     <line x1="380" y1="32" x2="380" y2="${height}" stroke="#30363d" stroke-width="1"/>
@@ -761,7 +689,7 @@ function generateWhoamiSVG(metrics, brailleArt) {
     ${statBox(680, 126, 'avg / active', `${metrics.avgActive}`, 'commits per day', '#58a6ff', 0.6)}
 
     <!-- Right Bottom: Detailed Monthly Activity Box with Gridlines, Area Fill & Values -->
-    <rect x="396" y="210" width="416" height="244" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <rect x="396" y="210" width="416" height="208" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
     <text x="412" y="232" fill="#e6edf3" font-family="monospace" font-size="11.5" font-weight="bold">
       ▸ MONTHLY CONTRIBUTION ANALYTICS (${new Date().getFullYear()})
     </text>
@@ -769,10 +697,10 @@ function generateWhoamiSVG(metrics, brailleArt) {
 
     <!-- Subtle Horizontal Chart Gridlines -->
     <g stroke="#21262d" stroke-width="0.8" stroke-dasharray="3 3">
-      <line x1="408" y1="275" x2="800" y2="275"/>
-      <line x1="408" y1="325" x2="800" y2="325"/>
-      <line x1="408" y1="375" x2="800" y2="375"/>
-      <line x1="408" y1="424" x2="800" y2="424"/>
+      <line x1="408" y1="278" x2="800" y2="278"/>
+      <line x1="408" y1="315" x2="800" y2="315"/>
+      <line x1="408" y1="352" x2="800" y2="352"/>
+      <line x1="408" y1="390" x2="800" y2="390"/>
     </g>
 
     ${trendPolyline}
@@ -1016,14 +944,14 @@ function generateLinksSVG() {
 async function main() {
   const userData = await fetchGitHubStats();
   const metrics = userData ? calculateMetrics(userData) : loadFallbackMetrics();
-  const brailleArt = await buildBraillePortrait(userData?.avatarUrl);
+  const asciiArt = loadAsciiPortrait();
 
   const assetsDir = path.join(__dirname, '..', 'assets');
   if (!fs.existsSync(assetsDir)) fs.mkdirSync(assetsDir, { recursive: true });
 
   fs.writeFileSync(path.join(assetsDir, 'hero.svg'), generateHeroSVG(metrics));
   fs.writeFileSync(path.join(assetsDir, 'contributions.svg'), generateContributionsSVG(metrics));
-  fs.writeFileSync(path.join(assetsDir, 'whoami.svg'), generateWhoamiSVG(metrics, brailleArt));
+  fs.writeFileSync(path.join(assetsDir, 'whoami.svg'), generateWhoamiSVG(metrics, asciiArt));
   fs.writeFileSync(path.join(assetsDir, 'stack.svg'), generateStackSVG());
   fs.writeFileSync(path.join(assetsDir, 'links.svg'), generateLinksSVG());
 
