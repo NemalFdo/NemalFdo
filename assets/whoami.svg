@@ -1,4 +1,13 @@
 <svg width="840" height="390" viewBox="0 0 840 390" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      .cursor { animation: blink 1s step-end infinite; fill: #39d353; }
+      .portrait { opacity: 0; animation: fadeIn 1.2s ease forwards; }
+      .fade-up { opacity: 0; animation: fadeIn 0.6s ease forwards; }
+      .bar { transform: scaleY(0); animation: growBar 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+      @keyframes blink { 50% { opacity: 0; } }
+      @keyframes fadeIn { to { opacity: 1; } }
+      @keyframes growBar { to { transform: scaleY(1); } }
+    </style>
     <rect width="840" height="390" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
     
     <rect x="0" y="0" width="840" height="32" rx="8" fill="#161b22"/>
@@ -6,93 +15,105 @@
     <circle cx="18" cy="16" r="5" fill="#ff5f56"/>
     <circle cx="36" cy="16" r="5" fill="#ffbd2e"/>
     <circle cx="54" cy="16" r="5" fill="#27c93f"/>
-    <text x="420" y="20" fill="#8b949e" font-family="monospace" font-size="12" text-anchor="middle">nemalfdo@github ~ $ whoami</text>
+    <text x="420" y="20" fill="#8b949e" font-family="monospace" font-size="12" text-anchor="middle">nemalfdo@github ~ $ whoami<tspan class="cursor">_</tspan></text>
     <line x1="0" y1="32" x2="840" y2="32" stroke="#30363d" stroke-width="1"/>
   
 
-    <!-- Left ASCII Portrait -->
-    <text y="54" fill="#e6edf3" font-family="monospace" font-size="9.5" xml:space="preserve"><tspan x="24" dy="0">              ........              </tspan><tspan x="24" dy="10.5">          ..::::::::::::..          </tspan><tspan x="24" dy="10.5">       ..::::::::::::::::::..       </tspan><tspan x="24" dy="10.5">     .::::::::::::::::::::::::.     </tspan><tspan x="24" dy="10.5">    .::::::##############::::::.    </tspan><tspan x="24" dy="10.5">   .:::::##################:::::.   </tspan><tspan x="24" dy="10.5">  .:::::####################:::::.  </tspan><tspan x="24" dy="10.5">  .::::######################::::.  </tspan><tspan x="24" dy="10.5"> .:::::####::::::::::::::####:::::. </tspan><tspan x="24" dy="10.5"> .:::::###::::::::::::::::###:::::. </tspan><tspan x="24" dy="10.5"> .:::::###::####::::####::###:::::. </tspan><tspan x="24" dy="10.5"> .:::::###::####::::####::###:::::. </tspan><tspan x="24" dy="10.5"> .:::::###::::::::::::::::###:::::. </tspan><tspan x="24" dy="10.5">  .:::::###::::::::::::::###:::::.  </tspan><tspan x="24" dy="10.5">  .::::::###::::####::::###::::::.  </tspan><tspan x="24" dy="10.5">   .::::::################::::::.   </tspan><tspan x="24" dy="10.5">    .:::::::############:::::::.    </tspan><tspan x="24" dy="10.5">     .:::::::::######:::::::::.     </tspan><tspan x="24" dy="10.5">       ..::::::::::::::::::..       </tspan><tspan x="24" dy="10.5">         ...::::::::::::...         </tspan><tspan x="24" dy="10.5">      ..::::::::::::::::::::..      </tspan><tspan x="24" dy="10.5">   ..::::::::::::::::::::::::::..   </tspan><tspan x="24" dy="10.5">  .::::::::::::::::::::::::::::::.  </tspan><tspan x="24" dy="10.5"> .::::::::::::::::::::::::::::::::. </tspan><tspan x="24" dy="10.5"> .::::::::::::::::::::::::::::::::. </tspan><tspan x="24" dy="10.5">.::::::::::::::::::::::::::::::::::.</tspan></text>
+    <!-- Left Braille Portrait -->
+    <text class="portrait" y="54" fill="#e6edf3" font-family="monospace" font-size="11" xml:space="preserve"><tspan x="26" dy="0">........              </tspan><tspan x="26" dy="11">          ..::::::::::::..          </tspan><tspan x="26" dy="11">       ..::::::::::::::::::..       </tspan><tspan x="26" dy="11">     .::::::::::::::::::::::::.     </tspan><tspan x="26" dy="11">    .::::::##############::::::.    </tspan><tspan x="26" dy="11">   .:::::##################:::::.   </tspan><tspan x="26" dy="11">  .:::::####################:::::.  </tspan><tspan x="26" dy="11">  .::::######################::::.  </tspan><tspan x="26" dy="11"> .:::::####::::::::::::::####:::::. </tspan><tspan x="26" dy="11"> .:::::###::::::::::::::::###:::::. </tspan><tspan x="26" dy="11"> .:::::###::####::::####::###:::::. </tspan><tspan x="26" dy="11"> .:::::###::####::::####::###:::::. </tspan><tspan x="26" dy="11"> .:::::###::::::::::::::::###:::::. </tspan><tspan x="26" dy="11">  .:::::###::::::::::::::###:::::.  </tspan><tspan x="26" dy="11">  .::::::###::::####::::###::::::.  </tspan><tspan x="26" dy="11">   .::::::################::::::.   </tspan><tspan x="26" dy="11">    .:::::::############:::::::.    </tspan><tspan x="26" dy="11">     .:::::::::######:::::::::.     </tspan><tspan x="26" dy="11">       ..::::::::::::::::::..       </tspan><tspan x="26" dy="11">         ...::::::::::::...         </tspan><tspan x="26" dy="11">      ..::::::::::::::::::::..      </tspan><tspan x="26" dy="11">   ..::::::::::::::::::::::::::..   </tspan><tspan x="26" dy="11">  .::::::::::::::::::::::::::::::.  </tspan><tspan x="26" dy="11"> .::::::::::::::::::::::::::::::::. </tspan><tspan x="26" dy="11"> .::::::::::::::::::::::::::::::::. </tspan><tspan x="26" dy="11">.::::::::::::::::::::::::::::::::::.</tspan></text>
 
     <!-- Divider -->
     <line x1="380" y1="32" x2="380" y2="390" stroke="#30363d" stroke-width="1"/>
 
     <!-- Right 2x3 Metric Grid -->
     
-    <rect x="396" y="48" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <text x="408" y="68" fill="#8b949e" font-family="monospace" font-size="11">current streak</text>
-    <text x="408" y="92" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">1d</text>
-    <text x="408" y="107" fill="#6e7681" font-family="monospace" font-size="10">active run</text>
+    <g class="fade-up" style="animation-delay:0.1s">
+      <rect x="396" y="48" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="408" y="68" fill="#8b949e" font-family="monospace" font-size="11">current streak</text>
+      <text x="408" y="92" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">5d</text>
+      <text x="408" y="107" fill="#6e7681" font-family="monospace" font-size="10">active run</text>
+    </g>
   
     
-    <rect x="538" y="48" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <text x="550" y="68" fill="#8b949e" font-family="monospace" font-size="11">longest streak</text>
-    <text x="550" y="92" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">1d</text>
-    <text x="550" y="107" fill="#6e7681" font-family="monospace" font-size="10">all-time best</text>
+    <g class="fade-up" style="animation-delay:0.2s">
+      <rect x="538" y="48" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="550" y="68" fill="#8b949e" font-family="monospace" font-size="11">longest streak</text>
+      <text x="550" y="92" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">6d</text>
+      <text x="550" y="107" fill="#6e7681" font-family="monospace" font-size="10">all-time best</text>
+    </g>
   
     
-    <rect x="680" y="48" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <text x="692" y="68" fill="#8b949e" font-family="monospace" font-size="11">contributions</text>
-    <text x="692" y="92" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">6</text>
-    <text x="692" y="107" fill="#6e7681" font-family="monospace" font-size="10">last 365 days</text>
+    <g class="fade-up" style="animation-delay:0.3s">
+      <rect x="680" y="48" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="692" y="68" fill="#8b949e" font-family="monospace" font-size="11">contributions</text>
+      <text x="692" y="92" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">717</text>
+      <text x="692" y="107" fill="#6e7681" font-family="monospace" font-size="10">last 365 days</text>
+    </g>
   
 
     
-    <rect x="396" y="126" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <text x="408" y="146" fill="#8b949e" font-family="monospace" font-size="11">active days</text>
-    <text x="408" y="170" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">2</text>
-    <text x="408" y="185" fill="#6e7681" font-family="monospace" font-size="10">days coded</text>
+    <g class="fade-up" style="animation-delay:0.4s">
+      <rect x="396" y="126" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="408" y="146" fill="#8b949e" font-family="monospace" font-size="11">active days</text>
+      <text x="408" y="170" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">181</text>
+      <text x="408" y="185" fill="#6e7681" font-family="monospace" font-size="10">days coded</text>
+    </g>
   
     
-    <rect x="538" y="126" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <text x="550" y="146" fill="#8b949e" font-family="monospace" font-size="11">max / day</text>
-    <text x="550" y="170" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">5</text>
-    <text x="550" y="185" fill="#6e7681" font-family="monospace" font-size="10">peak output</text>
+    <g class="fade-up" style="animation-delay:0.5s">
+      <rect x="538" y="126" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="550" y="146" fill="#8b949e" font-family="monospace" font-size="11">max / day</text>
+      <text x="550" y="170" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">30</text>
+      <text x="550" y="185" fill="#6e7681" font-family="monospace" font-size="10">peak output</text>
+    </g>
   
     
-    <rect x="680" y="126" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <text x="692" y="146" fill="#8b949e" font-family="monospace" font-size="11">avg / active</text>
-    <text x="692" y="170" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">3.0</text>
-    <text x="692" y="185" fill="#6e7681" font-family="monospace" font-size="10">commits / day</text>
+    <g class="fade-up" style="animation-delay:0.6s">
+      <rect x="680" y="126" width="132" height="68" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="692" y="146" fill="#8b949e" font-family="monospace" font-size="11">avg / active</text>
+      <text x="692" y="170" fill="#39d353" font-family="monospace" font-size="20" font-weight="bold">4.0</text>
+      <text x="692" y="185" fill="#6e7681" font-family="monospace" font-size="10">commits / day</text>
+    </g>
   
 
     <!-- Bottom Monthly Activity Box -->
     <rect x="396" y="210" width="416" height="162" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
     <text x="410" y="232" fill="#8b949e" font-family="monospace" font-size="11">contributions / month (2026)</text>
     
-      <rect x="408" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.10s; transform-origin: 418px 345px;" x="408" y="322" width="20" height="23" rx="2" fill="#39d353"/>
       <text x="418" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">J</text>
     
-      <rect x="441" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.16s; transform-origin: 451px 345px;" x="441" y="328" width="20" height="17" rx="2" fill="#39d353"/>
       <text x="451" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">F</text>
     
-      <rect x="474" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.22s; transform-origin: 484px 345px;" x="474" y="330" width="20" height="15" rx="2" fill="#39d353"/>
       <text x="484" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">M</text>
     
-      <rect x="507" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.28s; transform-origin: 517px 345px;" x="507" y="287" width="20" height="58" rx="2" fill="#39d353"/>
       <text x="517" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">A</text>
     
-      <rect x="540" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.34s; transform-origin: 550px 345px;" x="540" y="303" width="20" height="42" rx="2" fill="#39d353"/>
       <text x="550" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">M</text>
     
-      <rect x="573" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.40s; transform-origin: 583px 345px;" x="573" y="296" width="20" height="49" rx="2" fill="#39d353"/>
       <text x="583" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">J</text>
     
-      <rect x="606" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.46s; transform-origin: 616px 345px;" x="606" y="327" width="20" height="18" rx="2" fill="#39d353"/>
       <text x="616" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">J</text>
     
-      <rect x="639" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.52s; transform-origin: 649px 345px;" x="639" y="315" width="20" height="30" rx="2" fill="#39d353"/>
       <text x="649" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">A</text>
     
-      <rect x="672" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.58s; transform-origin: 682px 345px;" x="672" y="328" width="20" height="17" rx="2" fill="#39d353"/>
       <text x="682" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">S</text>
     
-      <rect x="705" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.64s; transform-origin: 715px 345px;" x="705" y="330" width="20" height="15" rx="2" fill="#39d353"/>
       <text x="715" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">O</text>
     
-      <rect x="738" y="287" width="20" height="58" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.70s; transform-origin: 748px 345px;" x="738" y="334" width="20" height="11" rx="2" fill="#39d353"/>
       <text x="748" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">N</text>
     
-      <rect x="771" y="341" width="20" height="4" rx="2" fill="#39d353"/>
+      <rect class="bar" style="animation-delay:0.76s; transform-origin: 781px 345px;" x="771" y="341" width="20" height="4" rx="2" fill="#39d353"/>
       <text x="781" y="360" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">D</text>
     
   </svg>
