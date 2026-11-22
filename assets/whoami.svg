@@ -146,7 +146,7 @@
         <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.1s" repeatCount="indefinite"/>
       </circle>
       <text x="408" y="64" fill="#8b949e" font-family="monospace" font-size="10.5">current streak</text>
-      <text x="408" y="90" fill="#39d353" font-family="monospace" font-size="21" font-weight="bold">5d</text>
+      <text x="408" y="90" fill="#39d353" font-family="monospace" font-size="21" font-weight="bold">0d</text>
       <text x="408" y="106" fill="#6e7681" font-family="monospace" font-size="9.5">active coding run</text>
     </g>
   
@@ -192,7 +192,7 @@
         <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.4s" repeatCount="indefinite"/>
       </circle>
       <text x="408" y="146" fill="#8b949e" font-family="monospace" font-size="10.5">active days</text>
-      <text x="408" y="172" fill="#bc8cff" font-family="monospace" font-size="21" font-weight="bold">181</text>
+      <text x="408" y="172" fill="#bc8cff" font-family="monospace" font-size="21" font-weight="bold">179</text>
       <text x="408" y="188" fill="#6e7681" font-family="monospace" font-size="9.5">days committed</text>
     </g>
   
