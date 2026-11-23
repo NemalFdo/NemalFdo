@@ -154,7 +154,7 @@
       <!-- Animated HUD Badges Row -->
       <g transform="translate(190, 154)">
         <rect x="0" y="0" width="142" height="24" rx="5" fill="#161b22" stroke="#39d353" stroke-width="1"/>
-        <text x="71" y="15.5" fill="#39d353" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">⚡ 720 COMMITS/YR</text>
+        <text x="71" y="15.5" fill="#39d353" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">⚡ 714 COMMITS/YR</text>
 
         <rect x="152" y="0" width="166" height="24" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1"/>
         <text x="235" y="15.5" fill="#58a6ff" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">🌐 REACT • NEXT • .NET</text>
